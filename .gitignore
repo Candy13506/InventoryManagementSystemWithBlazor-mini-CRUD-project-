@@ -1,0 +1,31 @@
+# Visual Studio and VS Code
+.vs/
+.vscode/
+
+# Build folders
+bin/
+obj/
+Debug/
+Release/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Configuration files with sensitive data
+appsettings.json
+appsettings.Development.json
+
+# Backup and temp files
+*.tmp
+*.bak
+*.swp
+*.DS_Store
+
+# Publish output
+wwwroot/
