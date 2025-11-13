@@ -1,0 +1,14 @@
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\bin\Debug\net8.0\InventoryManagementApp.Database.deps.json
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\bin\Debug\net8.0\InventoryManagementApp.Database.runtimeconfig.json
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\bin\Debug\net8.0\InventoryManagementApp.Database.dll
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\bin\Debug\net8.0\InventoryManagementApp.Database.pdb
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.csproj.AssemblyReference.cache
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.GeneratedMSBuildEditorConfig.editorconfig
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.AssemblyInfoInputs.cache
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.AssemblyInfo.cs
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.csproj.CoreCompileInputs.cache
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.dll
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\refint\InventoryManagementApp.Database.dll
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.pdb
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\InventoryManagementApp.Database.genruntimeconfig.cache
+D:\ACE+DAT\T.KKK\mini_Project\InventoryManagementApp\InventoryManagementApp.Database\obj\Debug\net8.0\ref\InventoryManagementApp.Database.dll

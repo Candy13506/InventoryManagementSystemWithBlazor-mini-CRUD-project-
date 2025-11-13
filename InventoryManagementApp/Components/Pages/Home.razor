@@ -1,0 +1,86 @@
+﻿@page "/"
+@inject NavigationManager Navigation
+@inject AppDbContext db
+
+<PageTitle>Inventory Dashboard</PageTitle>
+
+<h1>Welcome to Inventory Management App</h1>
+<p class="lead">Manage your products and sales efficiently.</p>
+
+<hr />
+
+<div class="row">
+    <!-- Total Products Card -->
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-header">Total Products</div>
+            <div class="card-body">
+                <h3 class="card-title">@totalProducts</h3>
+                <button class="btn btn-light btn-sm" @onclick="GoToProducts">View Products</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Sales Card -->
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Total Sales</div>
+            <div class="card-body">
+                <h3 class="card-title">@totalSales</h3>
+                <button class="btn btn-light btn-sm" @onclick="GoToSales">View Sales</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Stock Card -->
+    <div class="col-md-4">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-header">Total Stock</div>
+            <div class="card-body">
+                <h3 class="card-title">@totalStock</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private int totalProducts = 0;
+    private int totalSales = 0;
+    private int totalStock = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Count Products (ignore deleted)
+            totalProducts = await db.Products.CountAsync(x => x.IsDeleted != true);
+
+            // Count Sales (ignore deleted)
+            totalSales = await db.Sales.CountAsync(x => x.IsDeleted != true);
+
+            // Sum Product quantities safely
+            var quantities = await db.Products
+                .Where(x => x.IsDeleted != true)
+                .Select(x => x.Quantity) // handle nullable int
+                .ToListAsync();
+
+            totalStock = quantities.Sum();
+        }
+        catch (Exception ex)
+        {
+            // Log error in console
+            Console.WriteLine("Dashboard error: " + ex.Message);
+            totalProducts = totalSales = totalStock = 0;
+        }
+    }
+
+    private void GoToProducts()
+    {
+        Navigation.NavigateTo("/product");
+    }
+
+    private void GoToSales()
+    {
+        Navigation.NavigateTo("/sale");
+    }
+}

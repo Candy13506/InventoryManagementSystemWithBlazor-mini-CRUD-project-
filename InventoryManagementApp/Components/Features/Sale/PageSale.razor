@@ -1,0 +1,247 @@
+﻿@page "/sale"
+@inject AppDbContext db
+
+<PageTitle>Sale Management</PageTitle>
+
+<h3>Sale Entry</h3>
+
+<div class="mb-3">
+    <label class="form-label">Product</label>
+    <select class="form-select" @bind="request.ProductId">
+        <option value="0">-- Select Product --</option>
+        @foreach (var p in productList)
+        {
+            <option value="@p.ProductId">@p.Name</option>
+        }
+    </select>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Quantity Sold</label>
+    <input type="number" class="form-control" @bind="request.QuantitySold" min="1" />
+</div>
+
+<button class="btn btn-success me-2" @onclick="Save">Save</button>
+
+<hr />
+
+<h4>Sale List</h4>
+
+<!-- Date filter -->
+<div class="row mb-3">
+    <div class="col-md-4">
+        <label class="form-label">Start Date</label>
+        <input type="date" class="form-control" @bind="startDate" />
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">End Date</label>
+        <input type="date" class="form-control" @bind="endDate" />
+    </div>
+    <div class="col-md-4 mt-4">
+        <button class="btn btn-outline-primary mt-2" @onclick="Reload">Filter</button>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>No.</th>
+            <th>Product Name</th>
+            <th>Quantity Sold</th>
+            <th>Total Price</th>
+            <th>Sale Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = (pageNo - 1) * pageSize;
+            foreach (var s in saleList)
+            {
+                <tr>
+                    <td>@(++count)</td>
+                    <td>@s.Product?.Name</td>
+                    <td>@s.QuantitySold</td>
+                    <td>@s.TotalPrice</td>
+                    <td>@(s.SaleDate.HasValue ? s.SaleDate.Value.ToString("yyyy-MM-dd") : "")</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning me-2" @onclick="() => Edit(s.SaleId)">Edit</button>
+                        <button class="btn btn-sm btn-danger" @onclick="() => Delete(s.SaleId)">Delete</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @for (int i = 1; i <= pageCount; i++)
+        {
+            string active = i == pageNo ? "active" : "";
+            <li class="page-item @active">
+                <button class="page-link" @onclick="() => GoTo(i)">@i</button>
+            </li>
+        }
+    </ul>
+</nav>
+
+@code {
+    private int pageNo = 1;
+    private int pageSize = 10;
+    private int pageCount = 0;
+
+    private List<Sale> saleList = new();
+    private List<Product> productList = new();
+    private Sale request = new();
+
+    private DateTime? startDate = null;
+    private DateTime? endDate = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        productList = await db.Products
+            .Where(x => x.IsDeleted == false)
+            .ToListAsync();
+
+        await Reload();
+    }
+
+    private async Task Reload()
+    {
+        var query = db.Sales
+            .Include(x => x.Product)
+            .Where(x => x.IsDeleted == false);
+
+        // Apply date filter
+       if (startDate.HasValue)
+    query = query.Where(x => x.SaleDate >= startDate.Value.Date);
+
+if (endDate.HasValue)
+    query = query.Where(x => x.SaleDate < endDate.Value.Date.AddDays(1));
+
+        query = query.OrderByDescending(x => x.SaleId);
+
+        var count = await query.CountAsync();
+        pageCount = (count + pageSize - 1) / pageSize;
+
+        saleList = await query
+            .Skip((pageNo - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    private async Task Save()
+    {
+        if (request.ProductId == 0 || request.QuantitySold <= 0)
+            return;
+
+        var product = await db.Products.FirstOrDefaultAsync(x => x.ProductId == request.ProductId);
+        if (product == null)
+            return;
+
+        decimal totalPrice = product.Price * request.QuantitySold;
+
+        if (request.SaleId == 0)
+        {
+            // create
+            request.TotalPrice = totalPrice;
+            request.SaleDate = DateTime.Now;
+            request.CreatedBy = "System";
+            request.CreatedDate = DateTime.Now;
+            request.IsDeleted = false;
+            db.Sales.Add(request);
+
+            // reduce stock
+            product.Quantity -= request.QuantitySold;
+        }
+        else
+        {
+            // update
+            var data = await db.Sales.FirstOrDefaultAsync(x => x.SaleId == request.SaleId);
+            if (data != null)
+            {
+                // revert old stock
+                var oldProduct = await db.Products.FirstOrDefaultAsync(x => x.ProductId == data.ProductId);
+                if (oldProduct != null)
+                    oldProduct.Quantity += data.QuantitySold;
+
+                data.ProductId = request.ProductId;
+                data.QuantitySold = request.QuantitySold;
+                data.TotalPrice = totalPrice;
+                data.ModifiedBy = "System";
+                data.ModifiedDate = DateTime.Now;
+
+                // reduce new stock
+                product.Quantity -= request.QuantitySold;
+            }
+        }
+
+        await db.SaveChangesAsync();
+        request = new Sale();
+        await Reload();
+    }
+
+    private async Task Edit(int id)
+    {
+        var data = await db.Sales.FirstOrDefaultAsync(x => x.SaleId == id);
+        if (data != null)
+        {
+            request = new Sale
+            {
+                SaleId = data.SaleId,
+                ProductId = data.ProductId,
+                QuantitySold = data.QuantitySold
+            };
+        }
+    }
+
+    private async Task Delete(int id)
+    {
+        var data = await db.Sales.FirstOrDefaultAsync(x => x.SaleId == id);
+        if (data != null)
+        {
+            // revert stock
+            var product = await db.Products.FirstOrDefaultAsync(x => x.ProductId == data.ProductId);
+            if (product != null)
+                product.Quantity += data.QuantitySold;
+
+            data.IsDeleted = true;
+            data.ModifiedBy = "System";
+            data.ModifiedDate = DateTime.Now;
+            await db.SaveChangesAsync();
+            await Reload();
+        }
+    }
+
+    private async Task Generate()
+    {
+        if (!productList.Any()) return;
+
+        for (int i = 0; i < 5; i++)
+        {
+            var p = productList[i % productList.Count];
+            db.Sales.Add(new Sale
+            {
+                ProductId = p.ProductId,
+                QuantitySold = 2 + i,
+                TotalPrice = p.Price * (2 + i),
+                SaleDate = DateTime.Now,
+                CreatedBy = "System",
+                CreatedDate = DateTime.Now,
+                IsDeleted = false
+            });
+
+            // reduce stock
+            p.Quantity -= (2 + i);
+        }
+        await db.SaveChangesAsync();
+        await Reload();
+    }
+
+    private async Task GoTo(int currentPageNo)
+    {
+        pageNo = currentPageNo;
+        await Reload();
+    }
+}
