@@ -2815,23 +2815,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Acer\\.nuget\\packages\\": {},
+    "C:\\Users\\Nan Yamin Oo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp\\InventoryManagementApp.csproj",
+      "projectUniqueName": "D:\\PT\\InventoryManagementApp\\InventoryManagementApp.csproj",
       "projectName": "InventoryManagementApp",
-      "projectPath": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp\\InventoryManagementApp.csproj",
-      "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-      "outputPath": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp\\obj\\",
+      "projectPath": "D:\\PT\\InventoryManagementApp\\InventoryManagementApp.csproj",
+      "packagesPath": "C:\\Users\\Nan Yamin Oo\\.nuget\\packages\\",
+      "outputPath": "D:\\PT\\InventoryManagementApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Nan Yamin Oo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2846,8 +2846,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj": {
-              "projectPath": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj"
+            "D:\\PT\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj": {
+              "projectPath": "D:\\PT\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj"
             }
           }
         }

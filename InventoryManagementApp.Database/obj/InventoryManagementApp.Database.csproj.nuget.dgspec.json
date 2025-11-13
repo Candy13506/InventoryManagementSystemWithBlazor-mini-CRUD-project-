@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj": {}
+    "D:\\PT\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj": {}
   },
   "projects": {
-    "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj": {
+    "D:\\PT\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj",
+        "projectUniqueName": "D:\\PT\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj",
         "projectName": "InventoryManagementApp.Database",
-        "projectPath": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj",
-        "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "D:\\ACE+DAT\\T.KKK\\mini_Project\\InventoryManagementApp\\InventoryManagementApp.Database\\obj\\",
+        "projectPath": "D:\\PT\\InventoryManagementApp.Database\\InventoryManagementApp.Database.csproj",
+        "packagesPath": "C:\\Users\\Nan Yamin Oo\\.nuget\\packages\\",
+        "outputPath": "D:\\PT\\InventoryManagementApp.Database\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Nan Yamin Oo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
